@@ -1,6 +1,7 @@
 package recipes.service;
 
 import org.springframework.stereotype.Service;
+import recipes.model.IdResponse;
 import recipes.model.Recipe;
 
 import java.util.HashMap;
@@ -13,10 +14,10 @@ public class RecipeService {
     private AtomicInteger atomicInteger = new AtomicInteger();
     private Map<Integer, Recipe> recipes = new HashMap<>();
 
-    public Integer addRecipe(Recipe recipe) {
+    public IdResponse addRecipe(Recipe recipe) {
         int id = atomicInteger.addAndGet(1);
         recipes.put(id, recipe);
-        return id;
+        return new IdResponse(id);
     }
 
     public Optional<Recipe> getRecipe(Integer id) {

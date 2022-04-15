@@ -27,7 +27,6 @@ public class RecipeController {
 
     @PostMapping("/new")
     public IdResponse addRecipe(@RequestBody Recipe recipe) {
-        Integer id = recipeService.addRecipe(recipe);
-        return new IdResponse(id);
+        return recipeService.addRecipe(recipe);
     }
 }
