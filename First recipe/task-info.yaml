@@ -170,6 +170,18 @@ files:
         }
     }
   learner_created: false
+- name: src/recipes/model/Recipe.java
+  visible: true
+  learner_created: true
+- name: src/recipes/controller/RecipeController.java
+  visible: true
+  learner_created: true
+- name: src/recipes/service/RecipeService.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/180/stages/917/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Fri, 15 Apr 2022 11:25:22 UTC
 record: -1
