@@ -1,8 +1,13 @@
 package recipes.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import recipes.model.IdResponse;
 import recipes.model.Recipe;
 import recipes.service.RecipeService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/recipe")
@@ -14,13 +19,15 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping
-    public Recipe getRecipe() {
-        return recipeService.getRecipe();
+    @GetMapping("/{id}")
+    public Recipe getRecipe(@PathVariable Integer id) {
+        Optional<Recipe> optionalRecipe = recipeService.getRecipe(id);
+        return optionalRecipe.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping
-    public void addRecipe(@RequestBody Recipe recipe) {
-        recipeService.addRecipe(recipe);
+    @PostMapping("/new")
+    public IdResponse addRecipe(@RequestBody Recipe recipe) {
+        Integer id = recipeService.addRecipe(recipe);
+        return new IdResponse(id);
     }
 }
