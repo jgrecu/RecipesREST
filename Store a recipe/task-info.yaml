@@ -308,6 +308,112 @@ files:
         }
     }
   learner_created: false
-feedback_link: https://hyperskill.org/projects/180/stages/919/implement#comment
+- name: src/recipes/controller/RecipeController.java
+  visible: true
+  text: |
+    package recipes.controller;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.server.ResponseStatusException;
+    import recipes.model.IdResponse;
+    import recipes.model.Recipe;
+    import recipes.service.RecipeService;
+
+    import java.util.Optional;
+
+    @RestController
+    @RequestMapping("/api/recipe")
+    public class RecipeController {
+
+        private final RecipeService recipeService;
+
+        public RecipeController(RecipeService recipeService) {
+            this.recipeService = recipeService;
+        }
+
+        @GetMapping("/{id}")
+        public Recipe getRecipe(@PathVariable Integer id) {
+            Optional<Recipe> optionalRecipe = recipeService.getRecipe(id);
+            return optionalRecipe.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        }
+
+        @PostMapping("/new")
+        public IdResponse addRecipe(@RequestBody Recipe recipe) {
+            return recipeService.addRecipe(recipe);
+        }
+    }
+  learner_created: true
+- name: src/recipes/service/RecipeService.java
+  visible: true
+  text: |
+    package recipes.service;
+
+    import org.springframework.stereotype.Service;
+    import recipes.model.IdResponse;
+    import recipes.model.Recipe;
+
+    import java.util.HashMap;
+    import java.util.Map;
+    import java.util.Optional;
+    import java.util.concurrent.atomic.AtomicInteger;
+
+    @Service
+    public class RecipeService {
+        private AtomicInteger atomicInteger = new AtomicInteger();
+        private Map<Integer, Recipe> recipes = new HashMap<>();
+
+        public IdResponse addRecipe(Recipe recipe) {
+            int id = atomicInteger.addAndGet(1);
+            recipes.put(id, recipe);
+            return new IdResponse(id);
+        }
+
+        public Optional<Recipe> getRecipe(Integer id) {
+            if (recipes.containsKey(id)) {
+                return Optional.of(recipes.get(id));
+            } else {
+                return Optional.empty();
+            }
+
+        }
+    }
+  learner_created: true
+- name: src/recipes/model/Recipe.java
+  visible: true
+  text: |
+    package recipes.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import java.util.List;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public class Recipe {
+        private String name;
+        private String description;
+        private List<String> ingredients;
+        private List<String> directions;
+    }
+  learner_created: true
+- name: src/recipes/model/IdResponse.java
+  visible: true
+  text: |
+    package recipes.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+
+    @Data
+    @AllArgsConstructor
+    public class IdResponse {
+        private final Integer id;
+    }
+  learner_created: true
+feedback_link: https://hyperskill.org/learn/step/13090#comment
 status: Unchecked
 record: -1
