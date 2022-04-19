@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class IdResponse {
-    private final Integer id;
+    private final Long id;
 }
