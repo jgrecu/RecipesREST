@@ -10,6 +10,10 @@ import recipes.service.RecipeService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,6 +44,33 @@ public class RecipeController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateRecipe(@PathVariable Long id, @RequestBody @Valid Recipe recipe) {
+        Boolean updatedRecipe = recipeService.updateRecipe(id, recipe);
+        if (updatedRecipe) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Recipe>> searchRecipe(@RequestParam(name = "category", required = false) String category,
+                                                     @RequestParam(name = "name", required = false) String name) {
+
+        if ((category == null && name == null) || (category != null && name != null)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        if (category != null) {
+            List<Recipe> recipeList = recipeService.searchRecipesByCategory(category);
+            return new ResponseEntity<>(recipeList, HttpStatus.OK);
+        } else {
+            List<Recipe> recipeList = recipeService.searchRecipesByName(name);
+            return new ResponseEntity<>(recipeList, HttpStatus.OK);
         }
     }
 

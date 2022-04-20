@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -28,6 +29,10 @@ public class Recipe {
     private String name;
     @NotBlank
     private String description;
+    @NotBlank
+    private String category;
+
+    private LocalDateTime date;
 
     @NotNull
     @Size(min = 1)
