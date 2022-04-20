@@ -65,13 +65,14 @@ public class RecipeController {
             return ResponseEntity.badRequest().build();
         }
 
+        List<Recipe> recipeList;
+
         if (category != null) {
-            List<Recipe> recipeList = recipeService.searchRecipesByCategory(category);
-            return new ResponseEntity<>(recipeList, HttpStatus.OK);
+            recipeList = recipeService.searchRecipesByCategory(category);
         } else {
-            List<Recipe> recipeList = recipeService.searchRecipesByName(name);
-            return new ResponseEntity<>(recipeList, HttpStatus.OK);
+            recipeList = recipeService.searchRecipesByName(name);
         }
+        return new ResponseEntity<>(recipeList, HttpStatus.OK);
     }
 
 }
