@@ -635,6 +635,174 @@ files:
         }
     }
   learner_created: false
+- name: src/recipes/controller/RecipeController.java
+  visible: true
+  text: |
+    package recipes.controller;
+
+    import org.springframework.http.HttpStatus;
+    import org.springframework.http.ResponseEntity;
+    import org.springframework.web.bind.annotation.*;
+    import org.springframework.web.server.ResponseStatusException;
+    import recipes.model.IdResponse;
+    import recipes.model.Recipe;
+    import recipes.service.RecipeService;
+
+    import javax.validation.Valid;
+    import javax.validation.constraints.Min;
+    import java.util.Optional;
+
+    @RestController
+    @RequestMapping("/api/recipe")
+    public class RecipeController {
+
+        private final RecipeService recipeService;
+
+        public RecipeController(RecipeService recipeService) {
+            this.recipeService = recipeService;
+        }
+
+        @GetMapping("/{id}")
+        public Recipe getRecipe(@PathVariable @Min(1) Long id) {
+            Optional<Recipe> optionalRecipe = recipeService.getRecipe(id);
+            return optionalRecipe.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        }
+
+        @PostMapping("/new")
+        public IdResponse addRecipe(@RequestBody @Valid Recipe recipe) {
+            return recipeService.addRecipe(recipe);
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
+            Boolean deletedRecipe = recipeService.deleteRecipe(id);
+            if (deletedRecipe) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        }
+
+    }
+  learner_created: true
+- name: src/recipes/service/RecipeService.java
+  visible: true
+  text: |
+    package recipes.service;
+
+    import org.springframework.stereotype.Service;
+    import recipes.model.IdResponse;
+    import recipes.model.Recipe;
+    import recipes.repository.RecipeRepository;
+
+    import java.util.NoSuchElementException;
+    import java.util.Optional;
+
+    @Service
+    public class RecipeService {
+
+        private final RecipeRepository recipeRepository;
+
+        public RecipeService(RecipeRepository recipeRepository) {
+            this.recipeRepository = recipeRepository;
+        }
+
+        public IdResponse addRecipe(Recipe recipe) {
+            Recipe savedRecipe = recipeRepository.save(recipe);
+            return new IdResponse(savedRecipe.getId());
+        }
+
+        public Optional<Recipe> getRecipe(Long id) {
+            return recipeRepository.findById(id);
+        }
+
+        public Boolean deleteRecipe(Long id) {
+            boolean exists = recipeRepository.existsById(id);
+            if (exists) {
+                recipeRepository.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+  learner_created: true
+- name: src/recipes/repository/RecipeRepository.java
+  visible: true
+  text: |
+    package recipes.repository;
+
+    import org.springframework.data.jpa.repository.JpaRepository;
+    import org.springframework.stereotype.Repository;
+    import recipes.model.Recipe;
+
+    @Repository
+    public interface RecipeRepository extends JpaRepository<Recipe, Long> {
+    }
+  learner_created: true
+- name: src/recipes/model/Recipe.java
+  visible: true
+  text: |
+    package recipes.model;
+
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+    import lombok.NoArgsConstructor;
+
+    import javax.persistence.*;
+    import javax.validation.constraints.NotBlank;
+    import javax.validation.constraints.NotNull;
+    import javax.validation.constraints.Size;
+    import java.util.List;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Entity
+    @Table(name = "recipes")
+    public class Recipe {
+
+        @Id
+        @GeneratedValue
+        @Column(name = "id")
+        @JsonIgnore
+        private Long id;
+
+        @NotBlank
+        private String name;
+        @NotBlank
+        private String description;
+
+        @NotNull
+        @Size(min = 1)
+        @ElementCollection
+        @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "id"))
+        @Column(name = "ingredients")
+        private List<String> ingredients;
+
+        @NotNull
+        @Size(min = 1)
+        @ElementCollection
+        @CollectionTable(name = "directions", joinColumns = @JoinColumn(name = "id"))
+        @Column(name = "directions")
+        private List<String> directions;
+    }
+  learner_created: true
+- name: src/recipes/model/IdResponse.java
+  visible: true
+  text: |
+    package recipes.model;
+
+    import lombok.AllArgsConstructor;
+    import lombok.Data;
+
+    @Data
+    @AllArgsConstructor
+    public class IdResponse {
+        private final Long id;
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13091#comment
 status: Unchecked
 record: -1
