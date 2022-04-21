@@ -72,7 +72,7 @@ public class RecipeController {
         } else {
             recipeList = recipeService.searchRecipesByName(name);
         }
-        return new ResponseEntity<>(recipeList, HttpStatus.OK);
+        return ResponseEntity.ok().body(recipeList);
     }
 
 }
