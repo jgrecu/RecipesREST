@@ -4,15 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import recipes.model.IdResponse;
+import recipes.dao.IdResponse;
 import recipes.model.Recipe;
 import recipes.service.RecipeService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

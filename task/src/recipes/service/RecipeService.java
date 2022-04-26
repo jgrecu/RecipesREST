@@ -1,7 +1,7 @@
 package recipes.service;
 
 import org.springframework.stereotype.Service;
-import recipes.model.IdResponse;
+import recipes.dao.IdResponse;
 import recipes.model.Recipe;
 import recipes.repository.RecipeRepository;
 
