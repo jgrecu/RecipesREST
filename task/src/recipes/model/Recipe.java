@@ -20,7 +20,7 @@ import java.util.List;
 public class Recipe {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @JsonIgnore
     private Long id;
@@ -37,14 +37,17 @@ public class Recipe {
     @NotNull
     @Size(min = 1)
     @ElementCollection
-    @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "recipe_id"))
     @Column(name = "ingredients")
     private List<String> ingredients;
 
     @NotNull
     @Size(min = 1)
     @ElementCollection
-    @CollectionTable(name = "directions", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "directions", joinColumns = @JoinColumn(name = "recipe_id"))
     @Column(name = "directions")
     private List<String> directions;
+
+    @JsonIgnore
+    private String creator;
 }
