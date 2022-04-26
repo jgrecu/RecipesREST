@@ -1,4 +1,4 @@
-<h5>Description</h5>
+<h5 id="description">Description</h5>
 
 <p>We all were in a situation when we wanted to cook something special but couldn't remember a recipe. Let's create a program that can store all recipes in one place. The program is a multi-user web service based on Spring Boot that allows storing, retrieving, updating, and deleting recipes.</p>
 
@@ -13,9 +13,9 @@
    "directions": "1) Boil water. 2) Pour boiling hot water into a mug. 3) Add fresh mint leaves. 4) Mix and let the mint leaves seep for 3-5 minutes. 5) Add honey and mix again."
 }</code></pre>
 
-<h5>Theory</h5>
+<h5 id="theory">Theory</h5>
 
-<p>With Spring Boot, we need to write data classes with a lot of getters, setters, and constructors; having a readable <code class="language-json">toString</code> is also a good idea. Getters and setters are often simple, they return or store a value. Manually writing these methods may be tedious and lead to errors. To simplify this process, we can use a very simple but powerful <a target="_blank" href="https://projectlombok.org/features/all" rel="noopener noreferrer nofollow">Project Lombok</a> library. It can generate all these methods during compilation and reduces the number of lines and bugs. It also improves code readability and maintainability. Take a look at the example below:</p>
+<p>With Spring Boot, we need to write data classes with a lot of getters, setters, and constructors; having a readable <code class="language-json">toString</code> is also a good idea. Getters and setters are often simple, they return or store a value. Manually writing these methods may be tedious and lead to errors. To simplify this process, we can use a very simple but powerful <a target="_blank" target="_blank" href="https://projectlombok.org/features/all" rel="noopener noreferrer nofollow">Project Lombok</a> library. It can generate all these methods during compilation and reduces the number of lines and bugs. It also improves code readability and maintainability. Take a look at the example below:</p>
 
 <pre><code class="language-java">@Data
 @AllArgsConstructor
@@ -30,7 +30,7 @@ class Animal {
 
 <p>The tests won't check whether you use Project Lombok or not.</p>
 
-<h5>Objectives</h5>
+<h5 id="objectives">Objectives</h5>
 
 <p>Implement two endpoints:</p>
 
@@ -41,7 +41,7 @@ class Animal {
 
 <p>The initial recipe can have any form.</p>
 
-<h5>Examples</h5>
+<h5 id="examples">Examples</h5>
 
 <p><strong>Example 1: </strong><code class="language-json">POST /api/recipe</code> request with the following body:</p>
 

@@ -1,10 +1,10 @@
-<h5>Description</h5>
+<h5 id="description">Description</h5>
 
 <p>Imagine a service that supports the registration process, can handle a lot of users, and each of them can add their own recipes. Also, a user can update or delete only their recipes but can view recipes added by other users. In this stage, you will implement all this functionality with Spring Boot Security.</p>
 
 <p>The stage is divided into 3 steps. In the first step, you need to add an endpoint responsible for the user registration. The endpoint receives 2 fields: <code class="language-json">email</code> and <code class="language-json">password</code>. The second step is to enable Spring Security and configure the access restrictions – only the registered users with the correct login and password should have the rights to use the service. After that, restrict the deletion and updating to the recipe author only.</p>
 
-<h5>Objectives</h5>
+<h5 id="objectives">Objectives</h5>
 
 <p>The service should contain all features from the previous stages. To complete the project, you need to add the following functionality:</p>
 
@@ -25,7 +25,7 @@
 
 <p>If you use the H2 console, you need to unblock it by disabling <strong>CSRF</strong> and <strong>X-Frame-Options </strong>that prevents clickjacking attacks, by calling the following methods: <code class="language-json">.csrf().disable().headers().frameOptions().disable()</code> on the <code class="language-json">HttpSecurity</code> instance. Also, make sure that Spring Security does not block the H2 console URLs.</div></p>
 
-<h5>Examples</h5>
+<h5 id="examples">Examples</h5>
 
 <p><strong>Example 1: </strong><code class="language-json">POST /api/recipe/new</code> request without authentication</p>
 

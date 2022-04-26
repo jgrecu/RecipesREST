@@ -1,4 +1,4 @@
-<h5>Description</h5>
+<h5 id="description">Description</h5>
 
 <p>Our service can store only one recipe at a time which is not very convenient. In this stage, improve the service to store a lot of recipes and access recipes by a unique <code class="language-json">id</code>. Some changes in the recipe structure are also required.</p>
 
@@ -11,7 +11,7 @@
    "directions": ["Place all ingredients in a mug and fill with warm water (not too hot so you keep the beneficial honey compounds in tact)", "Steep for 5-10 minutes", "Drink and enjoy"]
 }</code></pre>
 
-<h5>Objectives</h5>
+<h5 id="objectives">Objectives</h5>
 
 <p>Rearrange the existing endpoints; the service should support the following:</p>
 
@@ -20,7 +20,7 @@
 	<li><code class="language-json">GET /api/recipe/{id}</code> returns a recipe with a specified <code class="language-json">id</code> as a JSON object (where <code class="language-json">{id}</code> is the <code class="language-json">id</code> of a recipe). The server should respond with the <code class="language-json">200 (Ok)</code> status code. If a recipe with a specified <code class="language-json">id</code> does not exist, the server should respond with <code class="language-json">404 (Not found)</code>.</li>
 </ul>
 
-<h5>Examples</h5>
+<h5 id="examples">Examples</h5>
 
 <p><strong>Example 1</strong>: <code class="language-json">POST /api/recipe/new</code> request with the following body:</p>
 

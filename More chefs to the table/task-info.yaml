@@ -1031,7 +1031,25 @@ files:
         private List<String> directions;
     }
   learner_created: true
-- name: src/recipes/model/IdResponse.java
+- name: src/recipes/security/WebSecurityConfiguration.java
+  visible: true
+  learner_created: true
+- name: src/recipes/model/User.java
+  visible: true
+  learner_created: true
+- name: src/recipes/repository/UserRepository.java
+  visible: true
+  learner_created: true
+- name: src/recipes/controller/RegistrationController.java
+  visible: true
+  learner_created: true
+- name: src/recipes/dao/UserRequest.java
+  visible: true
+  learner_created: true
+- name: src/recipes/service/UserService.java
+  visible: true
+  learner_created: true
+- name: src/recipes/dao/IdResponse.java
   visible: true
   text: |
     package recipes.model;

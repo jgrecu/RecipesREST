@@ -1,10 +1,10 @@
-<h5>Description</h5>
+<h5 id="description">Description</h5>
 
 <p>In the previous stage, we have improved our service, so it can handle a lot of recipes. But when we close our program, it deletes all recipes. In this stage, you'll implement one of the main features of the service – connect the service to a database and store the recipes there. No more lost recipes!</p>
 
 <p>You will also need a new endpoint that will allow deleting a recipe by the recipe <code class="language-java">id</code>. Make sure that the service accepts only valid recipes – recipes without directions or ingredients are frustrating. We won't change the recipe structure in this stage.</p>
 
-<h5>Objectives</h5>
+<h5 id="objectives">Objectives</h5>
 
 <p>First of all, include all necessary dependencies and configurations in the <code class="language-java">build.gradle</code> and <code class="language-java">application.properties</code> files.</p>
 
@@ -27,7 +27,7 @@
 	<li>The service should accept only valid recipes – all fields are obligatory, <code class="language-java">name</code> and <code class="language-java">description</code> shouldn't be blank, and JSON arrays should contain at least one item. If a recipe doesn't meet these requirements, the service should respond with the <code class="language-json">400 (Bad Request)</code> status code.</li>
 </ul>
 
-<h5>Examples</h5>
+<h5 id="examples">Examples</h5>
 
 <p><strong>Example 1: </strong><code class="language-java">POST /api/recipe/new</code> request</p>
 
