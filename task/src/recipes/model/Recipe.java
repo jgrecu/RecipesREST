@@ -34,6 +34,10 @@ public class Recipe {
 
     private LocalDateTime date;
 
+    @Column(name = "created_by")
+    @JsonIgnore
+    private String creator;
+
     @NotNull
     @Size(min = 1)
     @ElementCollection
@@ -48,6 +52,4 @@ public class Recipe {
     @Column(name = "directions")
     private List<String> directions;
 
-    @JsonIgnore
-    private String creator;
 }

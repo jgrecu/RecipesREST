@@ -2,6 +2,8 @@ package recipes.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import recipes.dao.IdResponse;
@@ -30,27 +32,37 @@ public class RecipeController {
     }
 
     @PostMapping("/new")
-    public IdResponse addRecipe(@RequestBody @Valid Recipe recipe) {
-        return recipeService.addRecipe(recipe);
+    public IdResponse addRecipe(@RequestBody @Valid Recipe recipe, @AuthenticationPrincipal UserDetails details) {
+        return recipeService.addRecipe(recipe, details.getUsername());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRecipe(@PathVariable Long id) {
-        Boolean deletedRecipe = recipeService.deleteRecipe(id);
-        if (deletedRecipe) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteRecipe(@PathVariable Long id, @AuthenticationPrincipal UserDetails details) {
+        try {
+            Boolean deletedRecipe = recipeService.deleteRecipe(id, details.getUsername());
+            if (deletedRecipe) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateRecipe(@PathVariable Long id, @RequestBody @Valid Recipe recipe) {
-        Boolean updatedRecipe = recipeService.updateRecipe(id, recipe);
-        if (updatedRecipe) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> updateRecipe(@PathVariable Long id,
+                                             @RequestBody @Valid Recipe recipe,
+                                             @AuthenticationPrincipal UserDetails details) {
+        try {
+            Boolean updatedRecipe = recipeService.updateRecipe(id, recipe, details.getUsername());
+            if (updatedRecipe) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 

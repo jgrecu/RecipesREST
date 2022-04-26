@@ -1063,6 +1063,19 @@ files:
         private final Long id;
     }
   learner_created: true
+- name: src/recipes/security/PasswordConfig.java
+  visible: true
+  learner_created: true
+- name: src/recipes/service/UserDetailsServiceImpl.java
+  visible: true
+  learner_created: true
+- name: src/recipes/model/UserDetailsImpl.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13092#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">JetBrains
+    Academy</a> to continue learning.
+  time: Tue, 26 Apr 2022 16:01:24 UTC
 record: -1

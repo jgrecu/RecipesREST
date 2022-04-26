@@ -18,8 +18,9 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
     }
 
-    public IdResponse addRecipe(Recipe recipe) {
+    public IdResponse addRecipe(Recipe recipe, String username) {
         recipe.setDate(LocalDateTime.now());
+        recipe.setCreator(username);
         Recipe savedRecipe = recipeRepository.save(recipe);
         return new IdResponse(savedRecipe.getId());
     }
@@ -28,22 +29,33 @@ public class RecipeService {
         return recipeRepository.findById(id);
     }
 
-    public Boolean deleteRecipe(Long id) {
-        boolean exists = recipeRepository.existsById(id);
-        if (exists) {
-            recipeRepository.deleteById(id);
-            return true;
+    public Boolean deleteRecipe(Long id, String username) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+        if (recipeOptional.isPresent()) {
+            Recipe recipe = recipeOptional.get();
+            if (username.equals(recipe.getCreator())) {
+                recipeRepository.deleteById(id);
+                return true;
+            } else {
+                throw new IllegalArgumentException();
+            }
         }
         return false;
     }
 
-    public Boolean updateRecipe(Long id, Recipe recipe) {
-        boolean exists = recipeRepository.existsById(id);
-        if (exists) {
-            recipe.setId(id);
-            recipe.setDate(LocalDateTime.now());
-            recipeRepository.save(recipe);
-            return true;
+    public Boolean updateRecipe(Long id, Recipe recipe, String username) throws IllegalArgumentException {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(id);
+        if (recipeOptional.isPresent()) {
+            Recipe recipe1 = recipeOptional.get();
+            if (username.equals(recipe1.getCreator())) {
+                recipe.setId(id);
+                recipe.setDate(LocalDateTime.now());
+                recipe.setCreator(recipe1.getCreator());
+                recipeRepository.save(recipe);
+                return true;
+            } else {
+                throw new IllegalArgumentException();
+            }
         }
         return false;
     }
