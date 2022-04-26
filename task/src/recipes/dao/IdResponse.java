@@ -1,4 +1,4 @@
-package recipes.model;
+package recipes.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
