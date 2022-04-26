@@ -19,7 +19,7 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     @JsonIgnore
     private Long id;
@@ -29,7 +29,7 @@ public class User {
     private String username;
     private String password;
 
-    private String roles;
+    private String role;
 
 
 }
